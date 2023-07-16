@@ -32,17 +32,17 @@ $+2::Send,{@}
 *]::send, \
 *}::send, |
 *+::send, {;}
-*;::send, {:} ; ƒRƒƒ“‚Ì•û‚ª•p“x‘½‚¢‚Ì‚ÅShift‚È‚µ
+*;::send, {:} ; ã‚³ãƒ­ãƒ³ã®æ–¹ãŒé »åº¦å¤šã„ã®ã§Shiftãªã—
 +*::send, "
 *vkBA::send, '
 
-; •ÏŠ· -> imeOn
+; å¤‰æ› -> imeOn
 sc029::Send,{vk16}
 
-; –³•ÏŠ· -> imeOff
+; ç„¡å¤‰æ› -> imeOff
 *sc07B::Send,{vk1A}
 
-; –³•ÏŠ·+IJKL‚Å–îˆóƒL[‚Ì“®ì
+; ç„¡å¤‰æ› + IJKLã§çŸ¢å°ã‚­ãƒ¼ã®å‹•ä½œ
 sc07B & I::Send,{Blind}{Up}
 sc07B & K::Send,{Blind}{Down}
 sc07B & J::Send,{Blind}{Left}
@@ -56,19 +56,19 @@ sc07B & P::Send,{Blind}{End}
 
 ; Enter Backspace Delete
 sc07B & @::Send,{Blind}{Delete}
-sc07B & VKBB::Send,{Blind}{Enter}
-sc07B & VKBA::Send,{Blind}{Backspace}
+sc07B & +::Send,{Blind}{Enter}
+sc07B & vkBA::Send,{Blind}{Backspace}
 
-; –³•ÏŠ·+Q -> Esc
+; ç„¡å¤‰æ›+Q -> Esc
 sc07B & Q:: Send,{Blind}{ESC}
 
-; –³•ÏŠ·+ƒJ[ƒ\ƒ‹ -> Home End PgUp PgDn
+; ç„¡å¤‰æ›+ã‚«ãƒ¼ã‚½ãƒ« -> Home End PgUp PgDn
 sc07B & Left::Send,{Blind}{Home}
 sc07B & Right::Send,{Blind}{End}
 sc07B & Up::Send,{Blind}{PgUp}
 sc07B & Down::Send,{Blind}{PgDn}
 
-; –³•ÏŠ·+‰EŽèƒAƒ‹ƒtƒ@ƒxƒbƒgƒL[ -> Ctrl+ƒAƒ‹ƒtƒ@ƒxƒbƒgƒL[
+; ç„¡å¤‰æ›+ä¸‹æ®µã‚­ãƒ¼ ã‚¿ã‚¹ã‚¯ã®ãƒ€ã‚¤ãƒ¬ã‚¯ãƒˆåˆ‡ã‚Šæ›¿ãˆ
 sc07B & Z:: Send,{Blind}#1
 sc07B & X:: Send,{Blind}#2
 sc07B & C:: Send,{Blind}#3
@@ -80,11 +80,11 @@ sc07B & sc033:: Send,{Blind}#8
 sc07B & sc034:: Send,{Blind}#9
 sc07B & sc035:: Send,{Blind}#0
 
-; –³•ÏŠ·+”Žš -> Function
+; ç„¡å¤‰æ›+æ•°å­— -> Function
 sc07B & 1:: Send,{Blind}{F1}
 sc07B & 2:: Send,{Blind}{F2}
 sc07B & 3:: Send,{Blind}{F3}
-sc07B & 4:: Send,!{F4}        ; F4‚Ì‚ÝAlt+F4(ƒAƒvƒŠ•Â‚¶‚é)
+sc07B & 4:: Send,!{F4}        ; F4ã®ã¿Alt+F4(ã‚¢ãƒ—ãƒªé–‰ã˜ã‚‹)
 sc07B & 5:: Send,{Blind}{F5}
 sc07B & 6:: Send,{Blind}{F6}
 sc07B & 7:: Send,{Blind}{F7}
@@ -94,9 +94,9 @@ sc07B & 0:: Send,{Blind}{F10}
 sc07B & -:: Send,{Blind}{F11}
 sc07B & ^:: Send,{Blind}{F12}
 
-;; ¶ƒ}ƒEƒXŽž‚Éƒeƒ“ƒL[‚ðŽg‚¢‚â‚·‚­‚·‚é ;;
+;; å·¦ãƒžã‚¦ã‚¹æ™‚ã«ãƒ†ãƒ³ã‚­ãƒ¼ã‚’ä½¿ã„ã‚„ã™ãã™ã‚‹ ;;
 
-; Numpad5      -> ƒRƒ“ƒeƒLƒXƒgƒƒjƒ…[
+; Numpad5      -> ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆãƒ¡ãƒ‹ãƒ¥ãƒ¼
 NumpadClear::Send, +{F10}
 
 ; Numpad Insert Delete Enter -> Cut Copy Paste
@@ -104,7 +104,7 @@ NumpadIns::^x
 NumpadDel::^c
 NumpadEnter::^v
 
-; Numpad += Šg‘åk¬
+; Numpad += æ‹¡å¤§ç¸®å°
 NumpadSub::
   if(GetKeyState("NumLock", "T")) {
      Send,{NumpadSub}
@@ -120,8 +120,8 @@ NumpadAdd::
   }
 Return
 
-; ƒŠƒ‚[ƒgƒfƒXƒNƒgƒbƒv‚ÌƒAƒNƒeƒBƒu‚ÅƒŠƒ[ƒh
-; ƒŠƒ‚[ƒgƒfƒXƒNƒgƒbƒv‚ªƒtƒ‹ƒXƒNƒŠ[ƒ“‚É‚È‚é‚ÆAutoHotKey‚ª”½‰f‚³‚ê‚È‚¢–â‘è‚É‘Îˆ‚·‚é
+; ãƒªãƒ¢ãƒ¼ãƒˆãƒ‡ã‚¹ã‚¯ãƒˆãƒƒãƒ—ã®ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã§ãƒªãƒ­ãƒ¼ãƒ‰
+; ãƒªãƒ¢ãƒ¼ãƒˆãƒ‡ã‚¹ã‚¯ãƒˆãƒƒãƒ—ãŒãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã«ãªã‚‹ã¨AutoHotKeyãŒåæ˜ ã•ã‚Œãªã„å•é¡Œã«å¯¾å‡¦ã™ã‚‹
 vkFF::
 If WinActive("ahk_class TscShellContainerClass")
 {  
@@ -130,13 +130,13 @@ If WinActive("ahk_class TscShellContainerClass")
 }
 Return
 
-; QM Console Window‚ÖU‚ÌƒL[•ÏŠ·(Windowƒ^ƒCƒgƒ‹‚Å”»’f)
+; QM Console Windowã¸Uã®ã‚­ãƒ¼å¤‰æ›(Windowã‚¿ã‚¤ãƒˆãƒ«ã§åˆ¤æ–­)
 #IfWinActive, QM
 
 ^Space::Send,{Blind}+{F11}
 ^+1::Send,{F2}
 
-; Windows10 ‚Ì Console Virtual Terminal Sequences ‚Æ QM3.4-12ˆÈã‚¾‚ÆˆÈ‰º•s—v‚Æ‚È‚é
+; Windows10 ã® Console Virtual Terminal Sequences ã¨ QM3.4-12ä»¥ä¸Šã ã¨ä»¥ä¸‹ä¸è¦ã¨ãªã‚‹
 ; ^Right::Send,!{F1} 
 ; ^Left::Send,!{F2}
 ; ^Down::Send,!{F3}
@@ -164,7 +164,7 @@ Return
 
 return
 
-; mintty‚Åƒy[ƒXƒg‚ðƒŠƒ}ƒbƒv Ctrl+v -> Ctrl+Shift+v
+; minttyã§ãƒšãƒ¼ã‚¹ãƒˆã‚’ãƒªãƒžãƒƒãƒ— Ctrl+v -> Ctrl+Shift+v
 #IfWinActive, ahk_class mintty
 ^v::
   IfWinNotActive QM [console]
