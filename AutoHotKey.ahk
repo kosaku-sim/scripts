@@ -1,46 +1,43 @@
 #SingleInstance force
 SendMode,Input
 
-; NumpadEnd -> toggle Capslock
-NumpadEnd::
-    if GetKeyState("CapsLock", "T") = 1
-    {
-        SetCapsLockState, off
-    }
-    else if GetKeyState("CapsLock", "F") = 0
-    {
-        SetCapsLockState, on
-    }      
-    Return
+; 左ボタン押しながらホイールスクロールでタスク切り替え
+~LButton & WheelDown::AltTab
+~LButton & WheelUp::ShiftAltTab
 
 ; us -> jis
-*F15::send, {``}
-*+F15::send,{~}
-$+2::Send,{@}
+*F15::send, {Blind}{``}
+*+F15::send, {~}
+$+2::Send, {@}
 *&::send, {^}
 *'::send, &
 *(::send, *
 *)::send, (
 *+0::send, )
-*=::send, _
-*^::send, =
-*~::send, {+}
-*@::send, [
-*`::send, {{}
-*[::send, ]
-*{::send, {}}
-*]::send, \
-*}::send, |
+*=::send, {Blind}_
+*^::send, {Blind}=
+*~::send, {Blind}{+}
+*@::send, {Blind}[
+*`::send, {Blind}{{}
+*[::send, {Blind}]
+*{::send, {Blind}{}}
+*]::send, {Blind}\
+*}::send, {Blind}|
 *+::send, {;}
-*;::send, {:} ; コロンの方が頻度多いのでShiftなし
-+*::send, "
-*vkBA::send, '
+*;::send, {Blind}{:} ; コロンの方が頻度多いのでShiftなし
++*::send, {Blind}"
+*vkBA::send, {Blind}'
+
+; remap Ctrl+Shift+w -> Alt+F4
+^+w::Send,!{F4}
 
 ; 変換 -> imeOn
 sc029::Send,{vk16}
+;sc029::Send,{vkF4}
 
 ; 無変換 -> imeOff
 *sc07B::Send,{vk1A}
+;*sc07B::Send,{vkF3}
 
 ; 無変換 + IJKLで矢印キーの動作
 sc07B & I::Send,{Blind}{Up}
@@ -84,7 +81,7 @@ sc07B & sc035:: Send,{Blind}#0
 sc07B & 1:: Send,{Blind}{F1}
 sc07B & 2:: Send,{Blind}{F2}
 sc07B & 3:: Send,{Blind}{F3}
-sc07B & 4:: Send,!{F4}        ; F4のみAlt+F4(アプリ閉じる)
+sc07B & 4:: Send,{Blind}{F4}        ; F4のみAlt+F4(アプリ閉じる)
 sc07B & 5:: Send,{Blind}{F5}
 sc07B & 6:: Send,{Blind}{F6}
 sc07B & 7:: Send,{Blind}{F7}
@@ -97,7 +94,7 @@ sc07B & ^:: Send,{Blind}{F12}
 ;; 左マウス時にテンキーを使いやすくする ;;
 
 ; Numpad5      -> コンテキストメニュー
-NumpadClear::Send, +{F10}
+NumpadClear::Send, {Blind}{vk5D}
 
 ; Numpad Insert Delete Enter -> Cut Copy Paste
 NumpadIns::^x
@@ -119,6 +116,37 @@ NumpadAdd::
      Send,^{NumpadAdd}
   }
 Return
+
+NumpadEnd::Send, {vkF3}
+
+; Shift+LCtrl -> Toggle CapsLock
+*~LCtrl::
+  Keywait, LCtrl, U
+  Keywait, LCtrl, D T0.2 ; 2回連続でLCtrlが押された場合だけスルー
+  If (ErrorLevel=1) {
+    Send {Blind}{vk07}
+  }
+  Return
++LCtrl up::
+    if GetKeyState("Shift","P") {
+        if (A_PriorHotkey == "*~LCtrl" && A_PriorKey == "LControl")
+        {
+            ; ローカルの場合は確実な方法にする（リモートはリモートの状態が取れないので）
+            If WinActive("ahk_class TscShellContainerClass") {
+                Send +{vkf0}
+            } else {
+                if GetKeyState("CapsLock", "T") = 1
+                {
+                    SetCapsLockState, off
+                }
+                else if GetKeyState("CapsLock", "F") = 0
+                {
+                    SetCapsLockState, on
+                }
+            }
+        }
+    }
+    Return
 
 ; リモートデスクトップのアクティブでリロード
 ; リモートデスクトップがフルスクリーンになるとAutoHotKeyが反映されない問題に対処する
